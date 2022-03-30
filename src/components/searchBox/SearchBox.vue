@@ -1,30 +1,29 @@
 <template>
-    <div id="SearchBox" class="search-box">
-        <input
-          type="text"
-          class="search-bar"
-          placeholder="Procure por uma cidade..."
-          v-model="input"
-          @keypress.enter="fetchLocation(input)"
-        />
-      </div>
+  <div id="SearchBox" class="search-box">
+    <input
+      type="text"
+      class="search-bar"
+      placeholder="Procure por uma cidade..."
+      :value="input"
+      @input="(evt) => (input = evt.target.value)"
+      @keypress.enter="fetchLocation(input)"
+    />
+  </div>
 </template>
 
 <script>
 export default {
-name:'SearchBox',
-props: {
-  fetchLocation: Function,
-},
-data(){
-  return{
- input:""
-  }
-},
-computed:{
-
-}
-}
+  name: "SearchBox",
+  props: {
+    fetchLocation: Function,
+  },
+  data() {
+    return {
+      input: "",
+    };
+  },
+  computed: {},
+};
 </script>
 
 <style>
