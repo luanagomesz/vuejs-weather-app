@@ -41,7 +41,8 @@ export default {
         this.errorNotFound = true;
         this.weather = {};
       } else {
-        this.setResults(response.json());
+        let res = await response.json();
+        this.setResults(res);
         this.errorNotFound = false;
       }
       return response;
