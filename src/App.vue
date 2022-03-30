@@ -40,7 +40,6 @@ export default {
       if (response.ok === false) {
         this.errorNotFound = true;
         this.weather = {};
-        console.log(error);
       } else {
         this.setResults(response.json());
         this.errorNotFound = false;
