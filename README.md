@@ -9,6 +9,8 @@ de sua própia cidade.
 
 Assim como também é possível pesquisar por qualquer cidade pelo input e receber as informações.
 
+*apenas versão mobile*
+
 ## Deploy
 ```
 http://vuejs-weatherapp.vercel.app/
