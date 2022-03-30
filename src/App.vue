@@ -33,23 +33,19 @@ export default {
     setResults(results) {
       this.weather = results;
     },
-    fetchLocation(input) {
-      fetch(`${this.url_base}weather?q=${input}&units=metric&appid=${this.api_key}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
-        })
-        .then((res) => {
-          this.setResults(res);
-          this.errorNotFound = false;
-        })
-        .catch((error) => {
-          this.errorNotFound = true;
-          this.weather = {};
-          console.log(error + "aaaaa");
-        });
+    async fetchLocation(input) {
+      const response = await fetch(
+        `${this.url_base}weather?q=${input}&units=metric&appid=${this.api_key}`
+      );
+      if (response.ok === false) {
+        this.errorNotFound = true;
+        this.weather = {};
+        console.log(error);
+      } else {
+        this.setResults(response.json());
+        this.errorNotFound = false;
+      }
+      return response;
     },
   },
 };
