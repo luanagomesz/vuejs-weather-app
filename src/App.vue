@@ -5,20 +5,24 @@
   >
     <main>
       <SearchBox :fetchLocation="fetchLocation" />
-      <WeatherWrap :d="d" :weather="weather" />
+      <WeatherWrap :d="d" :weather="weather" v-if="typeof weather.main != 'undefined'" />
+      <InitialLocation :d="d" v-else-if="!errorNotFound" />
       <div class="errorNotFound" v-if="errorNotFound"><h2>Cidade Não Encontrada</h2></div>
     </main>
   </div>
 </template>
 
 <script>
+import InitialLocation from "./components/initialLocation/InitialLocation";
 import SearchBox from "./components/searchBox/SearchBox";
 import WeatherWrap from "./components/weatherWrap/WeatherWrap";
+
 export default {
   name: "App",
   components: {
     SearchBox,
     WeatherWrap,
+    InitialLocation,
   },
   data() {
     return {
