@@ -7,7 +7,9 @@ Projeto realizado para estudos com vue.js
 http://vuejs-weatherapp.vercel.app/
 ```
 
-## Api
+## APIs
 ```
 https://openweathermap.org/api
+https://docs.ipdata.co/
+
 ```
