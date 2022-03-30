@@ -1,24 +1,13 @@
-# weatherapp
+# Weather App
 
-## Project setup
-```
-yarn install
-```
+Projeto realizado para estudos com vue.js
 
-### Compiles and hot-reloads for development
+## Deploy
 ```
-yarn serve
+http://vuejs-weatherapp.vercel.app/
 ```
 
-### Compiles and minifies for production
+## Api
 ```
-yarn build
+https://openweathermap.org/api
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
