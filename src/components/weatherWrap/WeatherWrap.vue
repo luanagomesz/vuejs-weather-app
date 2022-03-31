@@ -1,7 +1,9 @@
 <template>
   <div id="WeatherWrap" class="weather-wrap" v-if="typeof weather.main != 'undefined'">
     <div class="location-box">
-      <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
+      <div class="location">
+        {{ weather.name }}, {{ weather.sys.country }} {{ emoji }}
+      </div>
       <div class="date">
         {{ daysOfWeek[d.getDay()] }}
         {{ d.getDate() }}
@@ -22,6 +24,7 @@ export default {
   props: {
     d: Object,
     weather: Object,
+    emoji: String,
   },
   data() {
     return {

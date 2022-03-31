@@ -5,15 +5,18 @@
   >
     <main>
       <SearchBox :fetchLocation="fetchLocation" />
-      <WeatherWrap :d="d" :weather="weather" v-if="typeof weather.main != 'undefined'" />
-      <InitialLocation :d="d" v-else-if="!errorNotFound" />
+      <WeatherWrap
+        :d="d"
+        :weather="weather"
+        :emoji="emoji"
+        v-if="typeof weather.main != 'undefined'"
+      />
       <div class="errorNotFound" v-if="errorNotFound"><h2>Cidade Não Encontrada</h2></div>
     </main>
   </div>
 </template>
 
 <script>
-import InitialLocation from "./components/initialLocation/InitialLocation";
 import SearchBox from "./components/searchBox/SearchBox";
 import WeatherWrap from "./components/weatherWrap/WeatherWrap";
 
@@ -22,18 +25,38 @@ export default {
   components: {
     SearchBox,
     WeatherWrap,
-    InitialLocation,
+  },
+  async created() {
+    const response = await fetch(`${this.ip_url}`);
+    let res = await response.json();
+    let city = res.city;
+    this.emoji = res.emoji_flag;
+    const data = await fetch(
+      `${this.url_base}weather?q=${city}&units=metric&appid=${this.api_key}`
+    );
+    let resWeather = await data.json();
+    this.weather = resWeather;
   },
   data() {
     return {
+      ip_url:
+        "https://api.ipdata.co?api-key=f36ae1346c9d71d1074e18b12d2d3421f7b5232354390f25abadb8b7",
       api_key: "10a7cd4554bd2169ea1bb02e8300fea7",
       url_base: "https://api.openweathermap.org/data/2.5/",
       weather: {},
       d: new Date(),
       errorNotFound: false,
+      emoji: "",
     };
   },
   methods: {
+    getFlagEmoji(countryCode) {
+      const codePoints = countryCode
+        .toUpperCase()
+        .split("")
+        .map((char) => 127397 + char.charCodeAt());
+      return String.fromCodePoint(...codePoints);
+    },
     setResults(results) {
       this.weather = results;
     },
@@ -47,6 +70,7 @@ export default {
       } else {
         let res = await response.json();
         this.setResults(res);
+        this.emoji = this.getFlagEmoji(res.sys.country);
         this.errorNotFound = false;
       }
       return response;
