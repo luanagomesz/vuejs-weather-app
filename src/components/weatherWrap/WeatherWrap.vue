@@ -14,6 +14,15 @@
     <div class="weather-box">
       <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
       <div class="weather">{{ weather.weather[0].main }}</div>
+      <img :src="icon" class="icon" />
+      <div class="extra-information">
+        <p>Sensação de: {{ Math.round(weather.main.feels_like) }}°c</p>
+        <p>
+          Vento:
+          {{ weather.wind.speed }} km/h
+        </p>
+        <p>Umidade: {{ weather.main.humidity }}%</p>
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +34,15 @@ export default {
     d: Object,
     weather: Object,
     emoji: String,
+  },
+  watch: {
+    weather: {
+      immediate: true,
+      handler(NewValue) {
+        let res = NewValue;
+        this.icon = `http://openweathermap.org/img/w/${res.weather[0].icon}.png`;
+      },
+    },
   },
   data() {
     return {
@@ -43,6 +61,7 @@ export default {
         "Novembro",
         "Dezembro",
       ],
+      icon: "",
     };
   },
 };
@@ -84,6 +103,11 @@ export default {
   color: #fff;
   font-size: 48px;
   font-weight: 700;
+  font-style: italic;
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+}
+.weather-box .extra-information {
+  color: #fff;
   font-style: italic;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
